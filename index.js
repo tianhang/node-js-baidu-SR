@@ -1,8 +1,11 @@
 var express = require('express');
-var auth = require('./controller/auth');
-var upload = require('./controller/upload');
-var uploadtext = require('./controller/uploadtext');
+// var auth = require('./controller/auth');
+// var upload = require('./controller/upload');
+var polly = require('./controller/awspolly');
 var bodyParser = require('body-parser');
+
+
+
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
@@ -23,20 +26,26 @@ app.set('jsonp callback name', 'callback');
 
 app.get('/', function(request, response) {
   response.send("hello world ！");
-});
-app.get('/getToken', function(request, response) {
-  auth.getTokenJson(function(json) {
-    response.send(json);
-  });
+
 });
 
-app.post('/uploadAudio', function(request, response) {
-  upload.uploadAudio(request, response);
+app.post('/tts', function(request, response) {
+  //response.send("hello world ！");
+  polly.getSpeechBy(request, response);
 });
+// app.get('/getToken', function(request, response) {
+//   auth.getTokenJson(function(json) {
+//     response.send(json);
+//   });
+// });
 
-app.post('/uploadText', function(request, response) {
-  uploadtext.uploadText(request, response);
-});
+// app.post('/uploadAudio', function(request, response) {
+//   upload.uploadAudio(request, response);
+// });
+
+// app.post('/uploadText', function(request, response) {
+//   uploadtext.uploadText(request, response);
+// });
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
