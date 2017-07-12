@@ -42,7 +42,7 @@ let callAws = (info, i, callback) => {
     Text: info.text,
     VoiceId: info.opts.voice,
     TextType: "text",
-    SpeechMarkTypes: ['word', 'sentence '],
+    //SpeechMarkTypes: ['word', 'sentence '],
   }, halfHour);
 
   console.log("--info--");
